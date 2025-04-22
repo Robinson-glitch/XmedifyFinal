@@ -20,7 +20,7 @@ describe('Hospital', () => {
     cy.get('div#city').click(); // Open city dropdown
     cy.contains('li', 'DOTHAN', { timeout: 5000 }).click(); // Wait for city options to load and select DOTHAN
   
-    cy.get('button[type="submit"]').should('contain.text', 'Search').first().click();
+    cy.get('#searchBtn').should('contain.text', 'Search').click(); // Click the search button
     cy.wait('@getHospitals');
     cy.get('h1').should('contain.text', '2 medical centers available in dothan');
   });
@@ -40,7 +40,7 @@ describe('Hospital', () => {
     cy.contains('li', 'DOTHAN') // Replace with a valid city option
     .click();
 
-    cy.get('button[type="submit"]').should('contain.text', 'Search').first().click();
+    cy.get('#searchBtn').should('contain.text', 'Search').click(); // Click the search button
 
     cy.wait('@getHospitals');
     cy.get('button').contains('Book FREE Center Visit').should('be.visible');
@@ -60,7 +60,7 @@ describe('Hospital', () => {
     cy.contains('li', 'DOTHAN') // Replace with a valid city option
     .click();
 
-    cy.get('button[type="submit"]').should('contain.text', 'Search').first().click();
+    cy.get('#searchBtn').should('contain.text', 'Search').click(); // Click the search button
 
     cy.wait('@getHospitals');
     cy.get('button').contains('Book FREE Center Visit')
