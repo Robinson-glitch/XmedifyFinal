@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/main.f1d2f479.css","mappings":"AAAA,WAGI,qBAAsB,CADtB,aAAa,CADb,YAGJ","sources":["Home/Home.css"],"sourcesContent":[".MainOuter{\n    width:1440px;\n    height:6639px;\n    border:1px solid black;\n}"],"names":[],"sourceRoot":""}

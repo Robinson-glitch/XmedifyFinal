@@ -1,0 +1,78 @@
+.MainOuter{
+    width:1440px;
+    height:6639px;
+    border:1px solid black;
+}
+
+.header{
+    width:1440px;
+    height:40px;
+    background-color: #2AA7FF;
+    display:flex;
+
+    
+}
+
+.headerText{
+    width:994px;
+    height:21px;
+    margin-top: 9px;
+    margin-left:269px;
+    font-family: Poppins;
+    font-weight: 400;
+    font-style: regular;
+    font-size: 14px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    display:flex;
+    justify-content: center;
+    text-align: center;
+    color: #FFFFFF;
+
+}
+
+.Booking{
+    width:1440px;
+    height:832px;
+    border:1px solid black;
+}
+
+.logo{
+    width:92px;
+    height:27px;
+    margin-top: 32px;
+    margin-left:135px;
+     
+}
+
+.Links{
+    width:1440px;
+    height:96px;
+   display:flex
+}
+
+.Menu{
+    width:912px;
+    height:40px;
+    margin-top:24px;
+    margin-left:166px;
+    border:1px solid black;
+    display:flex;
+}
+
+.Menuflex{
+    width:694px;
+    height:21px;
+    display:flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-left:48px;
+    margin-top:9.5px;
+    margin-bottom:9.5px;
+  
+}
+
+.searchMedicalcenter{
+    width:1170px;
+    height:429px
+}
