@@ -24,16 +24,16 @@ const Hospital=()=>{
     const location = useLocation();
     const { selectedstate, selectedcity } = location.state || {};
     // Destructure directly from state
-    // useEffect(() => {
-    //   // Check if it's already stored
-    //   const stored = localStorage.getItem('bookings');
+    useEffect(() => {
+      // Check if it's already stored
+      const stored = localStorage.getItem('bookings');
     
-    //   if (!stored) {
-    //     localStorage.setItem('bookings', JSON.stringify({}));
-    //     // You can also store other default data here
-    //     // localStorage.setItem('selectedstate', 'California');
-    //   }
-    // }, []);
+      if (!stored) {
+        localStorage.setItem('bookings', JSON.stringify({}));
+        // You can also store other default data here
+        // localStorage.setItem('selectedstate', 'California');
+      }
+    }, []);
 
     useEffect(()=>{
         fetchhospitals()
@@ -53,8 +53,6 @@ const selectedHospitaldata=(date, time)=>{
   setappointmentdatetime({
     date:date,time:time
   })
-  console.log("datedabitch",date);
-  console.log("timedabitch",time);
   }
 }
     const fetchhospitals=async()=>{
@@ -76,9 +74,20 @@ const selectedHospitaldata=(date, time)=>{
     }
 
     const moveBookingpage=()=>{
-      console.log(selectedHospital);
-      console.log(appointmentdatetime);
-      history('/my-bookings', { state: { selectedHospital, appointmentdatetime } });
+     
+      const bookingdata=JSON.parse(localStorage.getItem("bookings"))||{};
+      console.log("bookingdata",bookingdata);
+      bookingdata['Hospital Name']=selectedHospital["Hospital Name"];
+      bookingdata.city=selectedcity;
+      bookingdata.state=selectedstate;
+      bookingdata['Hospital Type']="General";
+      bookingdata['Hospital overall rating']="4.5"
+      bookingdata['bookingDate']=appointmentdatetime.date;
+      bookingdata['bookingTime']=appointmentdatetime.time;
+      const stored=JSON.parse(localStorage.getItem("bookings"));
+      console.log("stored",stored);
+      history('/my-bookings');
+      
     }
 
     return(

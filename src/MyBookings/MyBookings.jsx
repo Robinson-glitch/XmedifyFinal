@@ -10,11 +10,12 @@ import { useLocation } from 'react-router-dom';
 import "./MyBookings.css"
 
 const MyBookings=()=>{
-    const location = useLocation();
-    const { selectedHospital, appointmentdatetime } = location.state||{};
+    // const location = useLocation();
+    // const {['Hospital Name']:hospital,bookingDate, bookingTime} = location.state||{};
+   const Appointmentdata= JSON.parse(localStorage.getItem("bookings"))||{};
     return(
 <Box>
-{selectedHospital && appointmentdatetime?(
+{Appointmentdata?(
 <Box>
 <h1>My Bookings</h1>
 
@@ -24,13 +25,13 @@ const MyBookings=()=>{
             <img style={{width:"100%",height:"100%"}} src={hospitalicon}></img>
           </Box>
           <Box className="Address">
-            <Box className="HospitalName">{selectedHospital["Hospital Name"]}</Box>
-        <Box sx={{width:"307px",height:"85px",mt:"12px",ml:"16px"}}><h1>{selectedHospital.city},{selectedHospital.state}</h1> </Box>
+            <Box className="HospitalName">{Appointmentdata["Hospital Name"]}</Box>
+        <Box sx={{width:"307px",height:"85px",mt:"12px",ml:"16px"}}><h1>{Appointmentdata.city},{Appointmentdata.state}</h1> </Box>
         </Box>
         <Box sx={{width:"236px",height:"220px"}}>
         <Box sx={{width:"114px",height:"20px",color:"#01A400", mb:"11px"}}>Available Today</Box>
-     <Box>{appointmentdatetime.date}</Box>
-     <Box>{appointmentdatetime.time}</Box>
+     <Box>{Appointmentdata.bookingDate}</Box>
+     <Box>{Appointmentdata.bookingTime}</Box>
         </Box>
        </Box>
 </Box>
