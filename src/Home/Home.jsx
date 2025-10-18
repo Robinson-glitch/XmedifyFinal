@@ -22,7 +22,8 @@ const[cities, setcities]=useState([]);
 const[selectedstate, setselectedstate]=useState();
 const[selectedcity, setselectedcity]=useState();
 const[showhospital, setshowhospital]=useState(false);
-
+const [stateOpen, setStateOpen] = useState(false);
+const [cityOpen, setCityOpen] = useState(false);
 useEffect(()=>{
     fetchAllstates();
     },[])
@@ -125,22 +126,48 @@ Facilities
  <Button sx={{ml:"137px",mt:"32px"}} className="findcenters" variant="contained">Find Centres</Button>
  <Box className="searchBox">
     <form onSubmit={setsearchdetails}>
-        <div id="state">
-<select className="state" value={selectedstate} placeholder="state" id="state" onChange={saveselectedstate}>
-<option value="">select state</option>
-{states.length>0&&states.map((state,index)=>(
-<option key={index} value={state}>{state}</option>
-))}
-</select>
-</div>
-<div id="city">
-<select className="city" value={selectedcity} placeholder="city" id="city" onChange={saveselectedcity}>
-<option value="">select city</option>
-{cities.length>0&&cities.map((city,index)=>(
-<option key={index} value={city}>{city}</option>
-))}
-</select>
-</div>
+        <div id="state" onClick={() => setStateOpen(!stateOpen)} style={{ border: '1px solid gray', width: 200, cursor: 'pointer' }}>
+    <div>{selectedstate || 'Select state'}</div>
+    {stateOpen && (
+      <ul style={{ listStyle: 'none', margin: 0, padding: 0, border: '1px solid black', maxHeight: 150, overflowY: 'auto' }}>
+        {states.map((state) => (
+          <li
+            key={state}
+            onClick={(e) => {
+              e.stopPropagation();
+              setselectedstate(state);
+              fetchCities(state);
+              setStateOpen(false);
+              setselectedcity('');
+              setshowhospital(false);
+            }}
+            style={{ padding: '8px', cursor: 'pointer' }}
+          >
+            {state}
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+<div id="city" onClick={() => setCityOpen(!cityOpen)} style={{ border: '1px solid gray', width: 200, cursor: 'pointer' }}>
+    <div>{selectedcity || 'Select city'}</div>
+    {cityOpen && (
+      <ul style={{ listStyle: 'none', margin: 0, padding: 0, border: '1px solid black', maxHeight: 150, overflowY: 'auto' }}>
+        {cities.map((city) => (
+          <li
+            key={city}
+            onClick={(e) => {
+              e.stopPropagation();
+              setselectedcity(city)
+            }}
+            style={{ padding: '8px', cursor: 'pointer' }}
+          >
+            {city}
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
 <Button sx={{width:"121px",height:"50px",ml:"120px"}}type="submit" id="searchBtn" variant="contained" onClick={showmedicalcentres}>Search</Button>
 </form>
 <Box className="quicklinks">You may be looking for</Box>
