@@ -48,7 +48,7 @@ const AppointmentSelector = ({hospitalobj}) => {
               color: selectedDateIndex === idx ? '#000' : '#555',
             }}
           >
-            <div>{date.label}</div>
+            <p>{date.label}</p>
             <div style={{ fontSize: '12px', color: 'green' }}>
               {date.slots} Slots Available
             </div>
