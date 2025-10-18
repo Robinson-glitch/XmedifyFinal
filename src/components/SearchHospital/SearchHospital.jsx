@@ -53,6 +53,10 @@ const selectedHospitaldata=(date, time)=>{
   setappointmentdatetime({
     date:date,time:time
   })
+  const bookingdata=JSON.parse(localStorage.getItem("bookings"))||{};
+  bookingdata['bookingDate']=appointmentdatetime.date;
+  bookingdata['bookingTime']=appointmentdatetime.time;
+ localStorage.setItem("bookings",JSON.stringify(bookingdata));
   }
 }
     const fetchhospitals=async()=>{
@@ -71,21 +75,28 @@ const selectedHospitaldata=(date, time)=>{
       setappointmenttab(true);
       setselectedHosiptal(hospital);
       // localStorage.setItem("hospital",JSON.stringify(hospital));
-    }
-
-    const moveBookingpage=()=>{
-     
       const bookingdata=JSON.parse(localStorage.getItem("bookings"))||{};
-      console.log("bookingdata",bookingdata);
-      bookingdata['Hospital Name']=selectedHospital["Hospital Name"];
+      bookingdata['Hospital Name']=hospital["Hospital Name"];
       bookingdata.city=selectedcity;
       bookingdata.state=selectedstate;
       bookingdata['Hospital Type']="General";
       bookingdata['Hospital overall rating']="4.5"
-      bookingdata['bookingDate']=appointmentdatetime.date;
-      bookingdata['bookingTime']=appointmentdatetime.time;
-      const stored=JSON.parse(localStorage.getItem("bookings"));
-      console.log("stored",stored);
+      localStorage.setItem("bookings",JSON.stringify(bookingdata));
+    }
+
+    const moveBookingpage=()=>{
+     
+      // const bookingdata=JSON.parse(localStorage.getItem("bookings"))||{};
+      // console.log("bookingdata",bookingdata);
+      // bookingdata['Hospital Name']=selectedHospital["Hospital Name"];
+      // bookingdata.city=selectedcity;
+      // bookingdata.state=selectedstate;
+      // bookingdata['Hospital Type']="General";
+      // bookingdata['Hospital overall rating']="4.5"
+      // bookingdata['bookingDate']=appointmentdatetime.date;
+      // bookingdata['bookingTime']=appointmentdatetime.time;
+      // const stored=JSON.parse(localStorage.getItem("bookings"));
+      // console.log("stored",stored);
       history('/my-bookings');
       
     }
