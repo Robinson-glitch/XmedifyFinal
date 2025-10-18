@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 
 const dates = [
   { label: 'Today', slots: 11 },
@@ -12,10 +12,20 @@ const timeSlots = {
   Evening: ['06:00 PM', '06:30 PM', '07:00 PM', '07:30 PM'],
 };
 
-const AppointmentSelector = () => {
+const AppointmentSelector = ({hospitalobj}) => {
   const [selectedDateIndex, setSelectedDateIndex] = useState(0);
   const [selectedTime, setSelectedTime] = useState(null);
+  const[selecteddate, setselecteddate]=useState();
 
+  useEffect(()=>{
+    updateBookingpage();
+  },[selectedTime,selecteddate])
+
+  const  updateBookingpage=()=>{
+    hospitalobj(selecteddate,selectedTime);
+  }
+
+  
   return (
     <div style={{ maxWidth: '500px', margin: '20px auto', fontFamily: 'Arial' }}>
       {/* Date Tabs */}
@@ -26,6 +36,7 @@ const AppointmentSelector = () => {
             onClick={() => {
               setSelectedDateIndex(idx);
               setSelectedTime(null);
+              setselecteddate(date.label);
             }}
             style={{
               flex: '1',
@@ -48,12 +59,13 @@ const AppointmentSelector = () => {
       {/* Time Slots */}
       {Object.keys(timeSlots).map((period) => (
         <div key={period} style={{ marginBottom: 20 }}>
-          <h4 style={{ marginBottom: 10, color: '#444' }}>{period}</h4>
+          <p style={{ marginBottom: 10, color: '#444' }}>{period}</p>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
             {timeSlots[period].map((time) => (
               <button
                 key={time}
-                onClick={() => setSelectedTime(time)}
+                onClick={() => {setSelectedTime(time);
+                }}
                 style={{
                   padding: '10px 15px',
                   border: `1px solid ${selectedTime === time ? '#007bff' : '#ccc'}`,

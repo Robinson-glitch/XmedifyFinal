@@ -5,9 +5,15 @@ import axios from "axios";
 import { useSnackbar } from "notistack";
 import React, { useEffect, useState } from "react";
 import logo from '../assets/logo.jpg';
+import hero from '../assets/hero.jpg'
+import Doctor from '../assets/Doctor.jpg'
+import Drugstore from '../assets/Drugstore.jpg'
+import HospitalIcon from '../assets/Hospital.jpg'
+import Ambulance from '../assets/Ambulance.jpg'
+import capsule from '../assets/Capsule.jpg'
 import "./Home.css"
 import Hospital from "../components/SearchHospital/SearchHospital.jsx"
-import { useHistory } from 'react-router-dom';
+import { useNavigate  } from 'react-router-dom';
 
 
 const LandingPage=()=>{
@@ -21,12 +27,11 @@ useEffect(()=>{
     fetchAllstates();
     },[])
 
-const history = useHistory();
+const history = useNavigate ();
 
 const fetchAllstates=async()=>{
 try{
     const response = await axios.get("https://meddata-backend.onrender.com/states");
-    console.log(response.data);
     setstates(response.data);
 }
 catch(error){
@@ -39,7 +44,6 @@ const fetchCities=async(state)=>{
 
     try{
         const response =await axios.get(`https://meddata-backend.onrender.com/cities/${state}`);
-        console.log(response.data);
         setcities(response.data);
     }
     catch(error){
@@ -66,9 +70,12 @@ const showmedicalcentres=()=>{
     }
 }
 
-const movetoBookingPage=()=>{
-    history.push('/my-bookings');
-  }
+const setsearchdetails=()=>{
+    
+    history('/searchHospital', { state: { selectedstate, selectedcity } });
+}
+
+
 
     return(
 <Box className="MainOuter">
@@ -101,26 +108,65 @@ SoftwareforProviders
 Facilities
  </Box>
 </Box>
-<Button sx={{width:"130px",height:"40px",borderRadius:"8px",backgroundColor:"#2AA8FF",ml:"auto"}} onClick={(event)=>movetoBookingPage()}>My Bookings</Button>
+<Button sx={{width:"130px",height:"40px",borderRadius:"8px",backgroundColor:"#2AA8FF",ml:"auto"}}>My Bookings</Button>
 </Box>
-<Box className="searchMedicalcenter">
-<select value={selectedstate} placeholder="state" id="states" onChange={saveselectedstate}>
+</Box>
+<Box className="Herosection" sx={{display:"flex"}} >
+<Box className="Herodesciption" sx={{position:"relative"}}>
+<Box className="SkipTravel">Skip the travel!,Find Online<br/>Medical Centers</Box>
+<Box className="specialist">Connect instantly with a 24x7 specialist or choose to <br/>video visit a particular doctor.</Box>
+</Box>
+ <Box className="Heroimage" sx={{position:"absolute"}}>
+    <Box className="imagebox" sx={{width:"585px",height:"481px",ml:"115px",mt:"69px"}}>
+<img  style={{width:"100%",height:"100%",objectFit: "cover" }} src={hero} alt="no img"></img>
+ </Box>  
+ </Box>
+ </Box>
+ <Button sx={{ml:"137px",mt:"32px"}} className="findcenters" variant="contained">Find Centres</Button>
+ <Box className="searchBox">
+    <form onSubmit={setsearchdetails}>
+<select className="state" value={selectedstate} placeholder="state" id="state" onChange={saveselectedstate}>
 <option value="">select state</option>
 {states.length>0&&states.map((state,index)=>(
 <option key={index} value={state}>{state}</option>
 ))}
 </select>
-<select value={selectedcity} placeholder="city" id="cities" onChange={saveselectedcity}>
+<select className="city" value={selectedcity} placeholder="city" id="city" onChange={saveselectedcity}>
 <option value="">select city</option>
 {cities.length>0&&cities.map((city,index)=>(
 <option key={index} value={city}>{city}</option>
 ))}
 </select>
-<Button className="search" onClick={showmedicalcentres}>Search</Button>
+<Button sx={{width:"121px",height:"50px",ml:"120px"}}type="submit" id="searchBtn" variant="contained" onClick={showmedicalcentres}>Search</Button>
+</form>
+<Box className="quicklinks">You may be looking for</Box>
+<Box className="quicklinkflex">
+<Box className="Doctors">
+<img style={{width:"60px",height:"60px",marginLeft:"72px",marginTop:"24px"}} src={Doctor} al="No img"></img>
+<Box className="doctorLabel">Doctors</Box>
+</Box>
+<Box className="Labs">
+<img style={{width:"60px",height:"60px",marginLeft:"72px",marginTop:"24px"}} src={Drugstore} al="No img"></img>
+<Box className="doctorLabel">Labs</Box>
+</Box>
+<Box className="Hospital">
+<img style={{width:"60px",height:"60px",marginLeft:"72px",marginTop:"24px"}} src={HospitalIcon} al="No img"></img>
+<Box className="doctorLabel">Hospital</Box>
+</Box>
+<Box className="MedicalStore">
+<img style={{width:"60px",height:"60px",marginLeft:"72px",marginTop:"24px"}} src={capsule} al="No img"></img>
+<Box className="doctorLabel">Medical Store</Box>
+</Box>
+<Box className="Ambulance">
+<img style={{width:"60px",height:"60px",marginLeft:"72px",marginTop:"24px"}} src={Ambulance} al="No img"></img>
+<Box className="doctorLabel">Ambulance</Box>
 </Box>
 </Box>
 </Box>
-{showhospital&&<Hospital state={selectedstate} city={selectedcity}></Hospital>}
+
+</Box>
+
+{/* {showhospital&&<Hospital state={selectedstate} city={selectedcity}></Hospital>} */}
 </Box>
     );
 }

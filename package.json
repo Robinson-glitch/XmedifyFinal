@@ -16,6 +16,7 @@
     "bootstrap": "^5.3.3",
     "browserify-zlib": "^0.2.0",
     "date-fns": "^3.6.0",
+    "dayjs": "^1.11.18",
     "https-browserify": "^1.0.0",
     "notistack": "^3.0.2",
     "react": "^18.2.0",
