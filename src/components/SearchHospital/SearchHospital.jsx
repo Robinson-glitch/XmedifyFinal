@@ -138,7 +138,7 @@ Facilities
             {hospy["Hospital Name"]}
             </h3>
             </Box>
-        <Box sx={{width:"307px",height:"85px",mt:"12px",ml:"16px"}}><h1>{selectedcity},{selectedstate}</h1> </Box>
+        <Box sx={{width:"307px",height:"85px",mt:"12px",ml:"16px"}}>{selectedcity},{selectedstate}</Box>
         </Box>
         <Box sx={{width:"236px",height:"220px"}}>
         <Box sx={{width:"114px",height:"20px",color:"#01A400", mb:"11px"}}>Available Today</Box>
