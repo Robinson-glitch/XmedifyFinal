@@ -35,7 +35,6 @@ const Hospital=()=>{
     //   }
     // }, []);
 
-    console.log("potta",selectedstate, selectedcity);
     useEffect(()=>{
         fetchhospitals()
     },[selectedstate,selectedcity])
@@ -122,7 +121,7 @@ Facilities
         <Button className="search" onclick={fetchhospitals}>Search</Button>
         </Box> */}
         <Box  sx={{width:"500px",height:"36px",mt:"102px",ml:"129px",mr:"810px"}}>
-<h1>{hospitaldata.length} medical centres available in {selectedcity}</h1>
+<h1>{hospitaldata.length} medical centres available in {selectedcity.toLowerCase()}</h1>
         </Box>
         {/* <Box className="HospitalBox" sx={{display:"flex",flexDirection:"column"}}> */}
         {hospitaldata.length!=0&&hospitaldata.map((hospy,index)=>(
