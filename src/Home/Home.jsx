@@ -125,18 +125,22 @@ Facilities
  <Button sx={{ml:"137px",mt:"32px"}} className="findcenters" variant="contained">Find Centres</Button>
  <Box className="searchBox">
     <form onSubmit={setsearchdetails}>
+        <div id="state">
 <select className="state" value={selectedstate} placeholder="state" id="state" onChange={saveselectedstate}>
 <option value="">select state</option>
 {states.length>0&&states.map((state,index)=>(
 <option key={index} value={state}>{state}</option>
 ))}
 </select>
+</div>
+<div id="city">
 <select className="city" value={selectedcity} placeholder="city" id="city" onChange={saveselectedcity}>
 <option value="">select city</option>
 {cities.length>0&&cities.map((city,index)=>(
 <option key={index} value={city}>{city}</option>
 ))}
 </select>
+</div>
 <Button sx={{width:"121px",height:"50px",ml:"120px"}}type="submit" id="searchBtn" variant="contained" onClick={showmedicalcentres}>Search</Button>
 </form>
 <Box className="quicklinks">You may be looking for</Box>
