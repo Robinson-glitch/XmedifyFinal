@@ -15,11 +15,10 @@ const MyBookings=()=>{
      const [appointmentData, setAppointmentData] = useState(null);
 
   useEffect(() => {
-    const fetchAppointmentData = () => {
+    
       const storedData = JSON.parse(localStorage.getItem("bookings"));
       setAppointmentData(storedData);
-    };
-    fetchAppointmentData();
+  
   }, []);
 
 
@@ -46,7 +45,7 @@ const MyBookings=()=>{
         </Box>
        </Box>
 </Box>
-</Box>):""})
+</Box>):<Typography variant="h6" sx={{ mt: 2 }}>No bookings found.</Typography>})
 </Box>
     )
 }
