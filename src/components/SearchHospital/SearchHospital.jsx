@@ -48,16 +48,15 @@ const Hospital=()=>{
     //     setcity(event.target.value);
     // }
 const selectedHospitaldata=(date, time)=>{
-
-  if(date!==undefined&&time!==null){
-  setappointmentdatetime({
-    date:date,time:time
-  })
-  const bookingdata=JSON.parse(localStorage.getItem("bookings"))||{};
-  bookingdata['bookingDate']=appointmentdatetime.date;
-  bookingdata['bookingTime']=appointmentdatetime.time;
+if(date!==undefined&&time!==null){
+    const bookingdata=JSON.parse(localStorage.getItem("bookings"))||{};
+  bookingdata['bookingDate']=date;
+  bookingdata['bookingTime']=time;
  localStorage.setItem("bookings",JSON.stringify(bookingdata));
-  }
+ setappointmentdatetime({
+  date,time
+})
+}
 }
     const fetchhospitals=async()=>{
       try{
@@ -71,6 +70,7 @@ const selectedHospitaldata=(date, time)=>{
         console.log(Error);
       }
     }
+    
     const viewAppointment=(hospital)=>{
       setappointmenttab(true);
       setselectedHosiptal(hospital);
