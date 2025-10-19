@@ -17,13 +17,14 @@ const AppointmentSelector = ({hospitalobj}) => {
   const [selectedTime, setSelectedTime] = useState(null);
   const[selecteddate, setselecteddate]=useState();
 
-  useEffect(()=>{
-    updateBookingpage();
-  },[selectedTime,selecteddate])
+  // useEffect(()=>{
+  //   updateBookingpage();
+  // },[selectedTime,selecteddate])
 
-  const  updateBookingpage=()=>{
-    hospitalobj(selecteddate,selectedTime);
-  }
+  // const  updateBookingpage=()=>{
+  //   console.log("executing hospitalobj");
+  //   hospitalobj(selecteddate,selectedTime);
+  // }
 
   
   return (
@@ -37,6 +38,7 @@ const AppointmentSelector = ({hospitalobj}) => {
               setSelectedDateIndex(idx);
               setSelectedTime(null);
               setselecteddate(date.label);
+              hospitalobj(date.label,null);
             }}
             style={{
               flex: '1',
@@ -65,6 +67,7 @@ const AppointmentSelector = ({hospitalobj}) => {
               <button
                 key={time}
                 onClick={() => {setSelectedTime(time);
+                  hospitalobj(selecteddate,time)
                 }}
                 style={{
                   padding: '10px 15px',
