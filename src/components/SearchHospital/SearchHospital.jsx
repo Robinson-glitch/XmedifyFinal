@@ -144,9 +144,9 @@ Facilities
         <Button className="search" onclick={fetchhospitals}>Search</Button>
         </Box> */}
         <Box  sx={{width:"500px",height:"36px",mt:"102px",ml:"129px",mr:"810px"}}>
-<h1>{hospitaldata.length} medical centres available in {selectedcity.toLowerCase()}</h1>
+<h1>{hospitaldata.length} medical centers available in {selectedcity.toLowerCase()}</h1>
         </Box>
-        {/* <Box className="HospitalBox" sx={{display:"flex",flexDirection:"column"}}> */}
+        {/* <Box className="HospitalBox" sx={{display:"flex",flexD`irection:"column"}}> */}
         {hospitaldata.length!=0&&hospitaldata.map((hospy,index)=>(
         
        <Box className="Hospitalavailable">
