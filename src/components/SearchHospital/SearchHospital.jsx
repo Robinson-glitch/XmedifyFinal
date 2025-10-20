@@ -23,18 +23,18 @@ const Hospital=()=>{
     const history = useNavigate();
     const location = useLocation();
     const { selectedstate, selectedcity } = location.state || {};
-    // Destructure directly from state
     useEffect(() => {
       // Check if it's already stored
       const stored = localStorage.getItem('bookings');
     
       if (!stored) {
-        localStorage.setItem('bookings', JSON.stringify({}));
+        localStorage.setItem('bookings', JSON.stringify([]));
         // You can also store other default data here
         // localStorage.setItem('selectedstate', 'California');
       }
     }, []);
 
+ 
     useEffect(()=>{
         fetchhospitals()
     },[selectedstate,selectedcity])
@@ -48,46 +48,49 @@ const Hospital=()=>{
     //     setcity(event.target.value);
     // }
 const selectedHospitaldata=(date, time)=>{
-if(date!==undefined&&time!==null){
-    const bookingdata=JSON.parse(localStorage.getItem("bookings"))||{};
-  bookingdata['bookingDate']=date;
-  bookingdata['bookingTime']=time;
- localStorage.setItem("bookings",JSON.stringify(bookingdata));
- setappointmentdatetime({
-  date,time
-})
-}
-}
+
+  if(date!==undefined&&time!==null){
+ 
+    console.log(date);
+    console.log(time);
+    const stored = JSON.parse(localStorage.getItem("bookings"));
+    const existingBookings = Array.isArray(stored) ? stored : [];
+    const newBooking = {
+      "Hospital Name": selectedHospital["Hospital Name"],
+      city: selectedcity,
+      state: selectedstate,
+      "Hospital Type": "General",
+      "Hospital overall rating": "4.5",
+      bookingDate: date,
+      bookingTime: time,
+    };
+
+    const updatedBookings = [...existingBookings, newBooking];
+    localStorage.setItem("bookings", JSON.stringify(updatedBookings));
+    setappointmentdatetime({ date, time });
+  }
+  }
+
     const fetchhospitals=async()=>{
       try{
        
      const response= await axios.get(`https://meddata-backend.onrender.com/data?state=${selectedstate}&city=${selectedcity}`)
      console.log(response.data);
      sethospitaldata(response.data);
-     
+      
       }
       catch(Error){
         console.log(Error);
       }
     }
-    
     const viewAppointment=(hospital)=>{
       setappointmenttab(true);
       setselectedHosiptal(hospital);
       // localStorage.setItem("hospital",JSON.stringify(hospital));
-      const bookingdata=JSON.parse(localStorage.getItem("bookings"))||{};
-      bookingdata['Hospital Name']=hospital["Hospital Name"];
-      bookingdata.city=selectedcity;
-      bookingdata.state=selectedstate;
-      bookingdata['Hospital Type']="General";
-      bookingdata['Hospital overall rating']="4.5"
-      localStorage.setItem("bookings",JSON.stringify(bookingdata));
     }
 
     const moveBookingpage=()=>{
-     
       // const bookingdata=JSON.parse(localStorage.getItem("bookings"))||{};
-      // console.log("bookingdata",bookingdata);
       // bookingdata['Hospital Name']=selectedHospital["Hospital Name"];
       // bookingdata.city=selectedcity;
       // bookingdata.state=selectedstate;
@@ -95,10 +98,10 @@ if(date!==undefined&&time!==null){
       // bookingdata['Hospital overall rating']="4.5"
       // bookingdata['bookingDate']=appointmentdatetime.date;
       // bookingdata['bookingTime']=appointmentdatetime.time;
+      // localStorage.setItem("bookings",JSON.stringify(bookingdata));
       // const stored=JSON.parse(localStorage.getItem("bookings"));
       // console.log("stored",stored);
       history('/my-bookings');
-      
     }
 
     return(
@@ -141,7 +144,7 @@ Facilities
         <Button className="search" onclick={fetchhospitals}>Search</Button>
         </Box> */}
         <Box  sx={{width:"500px",height:"36px",mt:"102px",ml:"129px",mr:"810px"}}>
-<h1>{hospitaldata.length} medical centers available in {selectedcity.toLowerCase()}</h1>
+<h1>{hospitaldata.length} medical centres available in {selectedcity.toLowerCase()}</h1>
         </Box>
         {/* <Box className="HospitalBox" sx={{display:"flex",flexDirection:"column"}}> */}
         {hospitaldata.length!=0&&hospitaldata.map((hospy,index)=>(
